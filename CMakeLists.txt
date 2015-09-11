@@ -6,6 +6,22 @@ include_directories(. INCLUDES)
 add_library(rgbconverter SHARED RGBConverter.cpp)
 
 
-# Optional - create a small demo that shows some of the library's functionality
-#add_executable(${PROJECT_NAME} main.cpp)
-#target_link_libraries(${PROJECT_NAME} rgbconverter)
+# Optional - create a small demo and tests
+# Google C++ Test
+# In many Linux distributions you can find libgtest-dev as upstream package
+# However in order to use the library you have to build it. I recommend building
+# gtest with the BUILD_SHARED_LIBS flag set to ON
+# Instructions:
+# - Install libgtest-dev
+# - Go to /usr/src/gtest
+# NOTE: following require superuser priveleges (`sudo`)
+# - Created a build directory and enter it
+# - Execute `cmake -DBUILD_SHARED_LIBS ..` from inside the build directory
+# - Execute `make`
+# - Use the `mv` command to move the libraries (two *.so files) to /usr/lib/
+# find_package(GTest) should now be able to find them
+enable_testing()
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} rgbconverter gtest)

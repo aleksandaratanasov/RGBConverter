@@ -16,9 +16,8 @@ v0.1
 
  * All functions are now not bound to Arduino's header
  * Added conversion for single and full RGB color values from/to float to/from integer
- * All doubles have been converted to floats (no need for great accuracy here)
  * Array arguments have been split into triplets of pointers (one pointer per value)
- * Aall functions are now static so there is no need for creating the RGBConverter object (constructor of RGBConverter has also been moved to private)
+ * All functions are now static so there is no need for creating the RGBConverter object (constructor of RGBConverter has also been moved to private)
  * Added alternative display of HSL using degrees and percentages
  * Reformatted documentation
  * Added example executable

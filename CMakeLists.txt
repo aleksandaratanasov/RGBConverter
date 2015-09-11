@@ -6,5 +6,6 @@ include_directories(. INCLUDES)
 add_library(rgbconverter SHARED RGBConverter.cpp)
 
 
-add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} rgbconverter)
+# Optional - create a small demo that shows some of the library's functionality
+#add_executable(${PROJECT_NAME} main.cpp)
+#target_link_libraries(${PROJECT_NAME} rgbconverter)

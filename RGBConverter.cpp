@@ -10,8 +10,7 @@
  *
  * Modifications by Aleksandar Vladimirov Atanasov, September 2015
  *  - all functions are now not bound to Arduino's header
- *  - added conversion for single and full RGB color values from/to float to/from integer
- *  - all doubles have been converted to floats (no need for great accuracy here)
+ *  - added conversion for single and full RGB color values from/to double to/from integer
  *  - array arguments have been split into triplets of pointers (one pointer per value)
  *  - all functions are now static so there is no need for creating the RGBConverter object (constructor of RGBConverter has also been moved to private)
  *  - added alternative display of HSL using degrees and percentages
@@ -21,48 +20,48 @@
 #include <cmath>
 
 // Unit conversions
-void RGBConverter::rgbIntToFloat_single(int x, float *_x) {
+void RGBConverter::rgbIntToDouble_single(int x, double *_x) {
   *_x = x/255.;
 }
 
-void RGBConverter::rgbIntToFloat(int r, int g, int b, float *_r, float *_g, float *_b) {
-  rgbIntToFloat_single(r, _r);
-  rgbIntToFloat_single(g, _g);
-  rgbIntToFloat_single(b, _b);
+void RGBConverter::rgbIntToDouble(int r, int g, int b, double *_r, double *_g, double *_b) {
+  rgbIntToDouble_single(r, _r);
+  rgbIntToDouble_single(g, _g);
+  rgbIntToDouble_single(b, _b);
 }
 
-void RGBConverter::rgbFloatToInt_single(float x, int *_x) {
+void RGBConverter::rgbDoubleToInt_single(double x, int *_x) {
   *_x = floor(x == 1.0 ? 255 : x * 256.0);
 }
 
-void RGBConverter::rgbFloatToInt(float r, float g, float b, int *_r, int *_g, int *_b) {
-  rgbFloatToInt_single(r, _r);
-  rgbFloatToInt_single(g, _g);
-  rgbFloatToInt_single(b, _b);
+void RGBConverter::rgbDoubleToInt(double r, double g, double b, int *_r, int *_g, int *_b) {
+  rgbDoubleToInt_single(r, _r);
+  rgbDoubleToInt_single(g, _g);
+  rgbDoubleToInt_single(b, _b);
 }
 
-void RGBConverter::hslIntervalZeroOneToDegAndPercentage(float h, float s, float l, float *_h, float *_s, float *_l) {
+void RGBConverter::hslIntervalZeroOneToDegAndPercentage(double h, double s, double l, double *_h, double *_s, double *_l) {
   *_h = h*360.;
   *_s = s*100.;
   *_l = l*100.;
 }
 
-void RGBConverter::hslDegAndPercentageToIntervalZeroOne(float h, float s, float l, float *_h, float *_s, float *_l) {
+void RGBConverter::hslDegAndPercentageToIntervalZeroOne(double h, double s, double l, double *_h, double *_s, double *_l) {
   *_h = h/360.;
   *_s = s/100.;
   *_l = l/100.;
 }
 
 // Color value conversions
-void RGBConverter::rgbToHsl(float r, float g, float b, float *h, float *s, float *l) {
-  float max = threeway_max(r, g, b);
-  float min = threeway_min(r, g, b);
+void RGBConverter::rgbToHsl(double r, double g, double b, double *h, double *s, double *l) {
+  double max = threeway_max(r, g, b);
+  double min = threeway_min(r, g, b);
   *l = (max + min) / 2;
 
   if (max == min) {
     *h = *s = 0.; // achromatic
   } else {
-    float d = max - min;
+    double d = max - min;
     *s = *l > .5 ? d / (2. - max - min) : d / (max + min);
     if (max == r) *h = (g - b) / d + (g < b ? 6. : 0.);
     else if (max == g) *h = (b - r) / d + 2.;
@@ -72,23 +71,23 @@ void RGBConverter::rgbToHsl(float r, float g, float b, float *h, float *s, float
   }
 }
 
-void RGBConverter::hslToRgb(float h, float s, float l, float *r, float *g, float *b) {
+void RGBConverter::hslToRgb(double h, double s, double l, double *r, double *g, double *b) {
   if (s == 0.) {
     *r = *g = *b = l; // achromatic
   } else {
-    float q = l < .5 ? l * (1 + s) : l + s - l * s;
-    float p = 2. * l - q;
+    double q = l < .5 ? l * (1 + s) : l + s - l * s;
+    double p = 2. * l - q;
     *r = RGBConverter::hueToRgb(p, q, h + 1/3.);
     *g = RGBConverter::hueToRgb(p, q, h);
     *b = RGBConverter::hueToRgb(p, q, h - 1/3.);
   }
 }
 
-void RGBConverter::rgbToHsv(float r, float g, float b, float *h, float *s, float *v) {
-  float max = threeway_max(r, g, b), min = threeway_min(r, g, b);
+void RGBConverter::rgbToHsv(double r, double g, double b, double *h, double *s, double *v) {
+  double max = threeway_max(r, g, b), min = threeway_min(r, g, b);
   *v = max;
 
-  float d = max - min;
+  double d = max - min;
   *s = max == 0. ? 0. : d / max;
 
   if (max == min) {
@@ -102,12 +101,12 @@ void RGBConverter::rgbToHsv(float r, float g, float b, float *h, float *s, float
   }
 }
 
-void RGBConverter::hsvToRgb(float h, float s, float v, float *r, float *g, float *b) {
+void RGBConverter::hsvToRgb(double h, double s, double v, double *r, double *g, double *b) {
   int i = int(h * 6.);
-  float f = h * 6. - i;
-  float p = v * (1. - s);
-  float q = v * (1. - f * s);
-  float t = v * (1. - (1. - f) * s);
+  double f = h * 6. - i;
+  double p = v * (1. - s);
+  double q = v * (1. - f * s);
+  double t = v * (1. - (1. - f) * s);
 
   switch(i % 6){
     case 0: *r = v, *g = t, *b = p; break;
@@ -119,15 +118,15 @@ void RGBConverter::hsvToRgb(float h, float s, float v, float *r, float *g, float
   }
 }
  
-float RGBConverter::threeway_max(float a, float b, float c) {
+double RGBConverter::threeway_max(double a, double b, double c) {
   return fmax(a, fmax(b, c));
 }
 
-float RGBConverter::threeway_min(float a, float b, float c) {
+double RGBConverter::threeway_min(double a, double b, double c) {
   return fmin(a, fmin(b, c));
 }
 
-float RGBConverter::hueToRgb(float p, float q, float t) {
+double RGBConverter::hueToRgb(double p, double q, double t) {
   if(t < 0.) t += 1;
   if(t > 1.) t -= 1;
   if(t < 1/6.) return p + (q - p) * 6. * t;
@@ -136,15 +135,27 @@ float RGBConverter::hueToRgb(float p, float q, float t) {
   return p;
 }
 
-void RGBConverter::rgbToCmyk(float r, float g, float b, float *c, float *m, float *y, float *k) {
+void RGBConverter::rgbToCmyk(double r, double g, double b, double *c, double *m, double *y, double *k) {
   *k = 1. - threeway_max(r, g, b);
   *c = (1. - r - *k) / (1. - *k);
   *m = (1. - g - *k) / (1. - *k);
   *y = (1. - b - *k) / (1. - *k);
 }
 
-void RGBConverter::cmykToRgb(float c, float m, float y, float k, float *r, float *g, float *b) {
+void RGBConverter::cmykToRgb(double c, double m, double y, double k, double *r, double *g, double *b) {
   *r = (1. - c) / (1. - k);
   *g = (1. - m) / (1. - k);
   *b = (1. - y) / (1. - k);
+}
+
+void RGBConverter::rgbToYiq(double r, double g, double b, double *y, double *i, double *q) {
+  *y = .299 * r + .587 * g + .114 * b;
+  *i = .569 * r - .275 * g - .322 * b;
+  *q = .211 * r - .523 * g + .312 * b;
+}
+
+void RGBConverter::yiqToRgb(double y, double i, double q, double *r, double *g, double *b) {
+  *r = y + .956 * i + .621 * q;
+  *g = y - .272 * i - .647 * q;
+  *b = y - 1.106 * i + 1.703 * q;
 }

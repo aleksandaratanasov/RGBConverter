@@ -7,12 +7,12 @@
 
 int main() {
 
-    float r, g, b;
+    double r, g, b;
     int _r, _g, _b;
-    float h, s, l, _h, _s, _l;
+    double h, s, l, _h, _s, _l;
 
-    RGBConverter::rgbIntToFloat(RGB_R, RGB_G, RGB_B, &r, &g, &b);
-    printf("RGB(int) -> RGB(float) -> HSL -> RGB(float) -> RGB(int)\n");
+    RGBConverter::rgbIntToDouble(RGB_R, RGB_G, RGB_B, &r, &g, &b);
+    printf("RGB(int) -> RGB(double) -> HSL -> RGB(double) -> RGB(int)\n");
     printf("RGB: %d %d %d\n", RGB_R, RGB_G, RGB_B);
     printf("RGB: %.2f %.2f %.2f\n", r, g, b);
 
@@ -25,7 +25,7 @@ int main() {
 
     RGBConverter::hslToRgb(h, s, l, &r, &g, &b);
     printf("RGB: %.2f %.2f %.2f\n", r, g, b);
-    RGBConverter::rgbFloatToInt(r, g, b, &_r, &_g, &_b);
+    RGBConverter::rgbDoubleToInt(r, g, b, &_r, &_g, &_b);
     printf("RGB: %d %d %d\n", _r, _g, _b);
     return 0;
 }

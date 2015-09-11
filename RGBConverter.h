@@ -10,8 +10,7 @@
  *
  * Modifications by Aleksandar Vladimirov Atanasov, September 2015
  *  - all functions are now not bound to Arduino's header
- *  - added conversion for single and full RGB color values from/to float to/from integer
- *  - all doubles have been converted to floats (no need for great accuracy here)
+ *  - added conversion for single and full RGB color values from/to double to/from integer
  *  - array arguments have been split into triplets of pointers (one pointer per value)
  *  - all functions are now static so there is no need for creating the RGBConverter object (constructor of RGBConverter has also been moved to private)
  *  - added alternative display of HSL using degrees and percentages
@@ -25,13 +24,13 @@ class RGBConverter {
 public:
     // Unit conversions
     /**
-     * @brief rgbIntToFloat_single Converts a single integer RGB color value component (red, green or blue) into its floating point representation
+     * @brief rgbIntToDouble_single Converts a single integer RGB color value component (red, green or blue) into its floating point representation
      * @param x   RGB single component as integer                                   (input)
      * @param _x  RGB single component as floating point                            (output)
      */
-    static void rgbIntToFloat_single(int x, float *_x);
+    static void rgbIntToDouble_single(int x, double *_x);
     /**
-     * @brief rgbIntToFloat Converts a RGB color value (red, green and blue) into its floating point representation
+     * @brief rgbIntToDouble Converts a RGB color value (red, green and blue) into its floating point representation
      * @param r     RGB red as integer in the interval [0 .. 255]                   (input)
      * @param g     RGB green as integer in the interval [0 .. 255]                 (input)
      * @param b     RGB blue as integer in the interval [0 .. 255]                  (input)
@@ -39,15 +38,15 @@ public:
      * @param g     RGB green as floating point in the interval [0.0 .. 1.0]        (output)
      * @param b     RGB blue as floating point in the interval [0.0 .. 1.0]         (output)
      */
-    static void rgbIntToFloat(int r, int g, int b, float *_r, float *_g, float *_b);
+    static void rgbIntToDouble(int r, int g, int b, double *_r, double *_g, double *_b);
     /**
-     * @brief rgbFloatToInt_single Converts a single floating point RGB color value component (red, green or blue) into its integer representation
+     * @brief rgbDoubleToInt_single Converts a single floating point RGB color value component (red, green or blue) into its integer representation
      * @param x   RGB single component as floating point in the interval [0.0 .. 1.0]   (input)
      * @param _x  RGB single component as integer in the interval [0 .. 255]            (output)
      */
-    static void rgbFloatToInt_single(float x, int *_x);
+    static void rgbDoubleToInt_single(double x, int *_x);
     /**
-     * @brief rgbFloatToInt Converts a floating point RGB color value (red, green and blue) into its integer representation
+     * @brief rgbDoubleToInt Converts a floating point RGB color value (red, green and blue) into its integer representation
      * @param r     RGB red as floating point in the interval [0.0 .. 1.0]          (input)
      * @param g     RGB green as floating point in the interval [0.0 .. 1.0]        (input)
      * @param b     RGB blue as floating point in the interval [0.0 .. 1.0]         (input)
@@ -55,7 +54,7 @@ public:
      * @param g     RGB green as integer in the interval [0 .. 255]                 (output)
      * @param b     RGB blue as integer in the interval [0 .. 255]                  (output)
      */
-    static void rgbFloatToInt(float r, float g, float b, int *_r, int *_g, int *_b);
+    static void rgbDoubleToInt(double r, double g, double b, int *_r, int *_g, int *_b);
     /**
      * @brief hslIntervalZeroOneToDegAndPercentage Converts a HSL color value with each component in the interval [0.0 .. 1.0] to degrees (for hue) and percentages (for saturation and lightness)
      * @param h     HSL hue as floating point in the interval [0.0 .. 1.0]          (input)
@@ -65,7 +64,7 @@ public:
      * @param _s    HSL saturation as floating point in the interval [0.0 .. 100.0%](output)
      * @param _l    HSL lightness as floating point in the interval [0.0 .. 100.0%] (output)
      */
-    static void hslIntervalZeroOneToDegAndPercentage(float h, float s, float l, float *_h, float *_s, float *_l);   // Note: all numbers after the floating point remain intact and represent minutes+seconds; if minutes and seconds are needed to be displayed, this function can be extended to conver those numbers into the desired measurement units
+    static void hslIntervalZeroOneToDegAndPercentage(double h, double s, double l, double *_h, double *_s, double *_l);   // Note: all numbers after the floating point remain intact and represent minutes+seconds; if minutes and seconds are needed to be displayed, this function can be extended to conver those numbers into the desired measurement units
     /**
      * @brief hslDegAndPercentageToIntervalZeroOne Converts a HSL color value represented as degrees (for hue) and percentages (for saturation and lightness) to representation where each component in the interval [0.0 .. 1.0]
      * @param h     HSL hue as floating point in the interval [0.0 .. 360.0deg]     (input)
@@ -75,7 +74,7 @@ public:
      * @param _s    HSL saturation as floating point in the interval [0.0 .. 1.0]   (output)
      * @param _l    HSL lightness as floating point in the interval [0.0 .. 1.0]    (output)
      */
-    static void hslDegAndPercentageToIntervalZeroOne(float h, float s, float l, float *_h, float *_s, float *_l);   // TODO
+    static void hslDegAndPercentageToIntervalZeroOne(double h, double s, double l, double *_h, double *_s, double *_l);   // TODO
 
     // Color value conversions
     // RGB/HSV
@@ -88,7 +87,7 @@ public:
      * @param s     HSL saturation as floating point in the interval [0.0 .. 1.0]   (output)
      * @param l     HSL lightness as floating point in the interval [0.0 .. 1.0]    (output)
      */
-    static void rgbToHsl(float r, float g, float b, float *h, float *s, float *l);
+    static void rgbToHsl(double r, double g, double b, double *h, double *s, double *l);
     /**
      * @brief hslToRgb Converts a floating point RGB color value (red, green and blue) into its HSL (hue, saturation and lightness) representation (all components in the interval [0.0 .. 1.0]
      * @param h     HSL hue as floating point in the interval [0.0 .. 1.0]          (input)
@@ -98,7 +97,7 @@ public:
      * @param g     RGB green as floating point in the interval [0.0 .. 1.0]        (output)
      * @param b     RGB blue as floating point in the interval [0.0 .. 1.0]         (output)
      */
-    static void hslToRgb(float h, float s, float l, float *r, float *g, float *b);
+    static void hslToRgb(double h, double s, double l, double *r, double *g, double *b);
 
     // RGB/HSV
     /**
@@ -110,7 +109,7 @@ public:
      * @param s     HSV saturation as floating point in the interval [0.0 .. 1.0]   (output)
      * @param v     HSV value as floating point in the interval [0.0 .. 1.0]        (output)
      */
-    static void rgbToHsv(float r, float g, float b, float *h, float *s, float *v);
+    static void rgbToHsv(double r, double g, double b, double *h, double *s, double *v);
     /**
      * @brief hsvToRgb
      * @param h     HSV hue as floating point in the interval [0.0 .. 1.0]          (input)
@@ -120,7 +119,7 @@ public:
      * @param g     RGB green as floating point in the interval [0.0 .. 1.0]        (output)
      * @param b     RGB blue as floating point in the interval [0.0 .. 1.0]         (output)
      */
-    static void hsvToRgb(float h, float s, float v, float *r, float *g, float *b);
+    static void hsvToRgb(double h, double s, double v, double *r, double *g, double *b);
 
     // RGB/CMYK
     /**
@@ -133,7 +132,7 @@ public:
      * @param y
      * @param k
      */
-    static void rgbToCmyk(float r, float g, float b, float *c, float *m, float *y, float *k);
+    static void rgbToCmyk(double r, double g, double b, double *c, double *m, double *y, double *k);
     /**
      * @brief cmykToRgb
      * @param c
@@ -144,7 +143,29 @@ public:
      * @param g
      * @param b
      */
-    static void cmykToRgb(float c, float m, float y, float k, float *r, float *g, float *b);
+    static void cmykToRgb(double c, double m, double y, double k, double *r, double *g, double *b);
+
+    // RGB/YIQ
+    /**
+     * @brief rgbToYiq
+     * @param r
+     * @param g
+     * @param b
+     * @param y
+     * @param i
+     * @param q
+     */
+    static void rgbToYiq(double r, double g, double b, double *y, double *i, double *q);
+    /**
+     * @brief yiqToRgb
+     * @param y
+     * @param i
+     * @param q
+     * @param r
+     * @param g
+     * @param b
+     */
+    static void yiqToRgb(double y, double i, double q, double *r, double *g, double *b);
 
 private:
     RGBConverter();
@@ -155,7 +176,7 @@ private:
      * @param c
      * @return maximum of a,b and c
      */
-    static float threeway_max(float a, float b, float c);
+    static double threeway_max(double a, double b, double c);
     /**
      * @brief threeway_min Finds the minimum in a triple of floating point values. Requires fmin from cmath
      * @param a
@@ -163,7 +184,7 @@ private:
      * @param c
      * @return minimum of a,b and c
      */
-    static float threeway_min(float a, float b, float c);
+    static double threeway_min(double a, double b, double c);
     /**
      * @brief hueToRgb Used internally in hslToRgb for handling the hue value
      * @param p
@@ -171,7 +192,7 @@ private:
      * @param t
      * @return p
      */
-    static float hueToRgb(float p, float q, float t);
+    static double hueToRgb(double p, double q, double t);
 };
 
 #endif

@@ -78,6 +78,7 @@ public:
     static void hslDegAndPercentageToIntervalZeroOne(float h, float s, float l, float *_h, float *_s, float *_l);   // TODO
 
     // Color value conversions
+    // RGB/HSV
     /**
      * @brief rgbToHsl Converts a floating point RGB color value (red, green and blue) into its HSL (hue, saturation and lightness) representation (all components for both RGB and HSL are in the interval [0.0 .. 1.0]
      * @param r     RGB red as floating point in the interval [0.0 .. 1.0]          (input)
@@ -90,17 +91,60 @@ public:
     static void rgbToHsl(float r, float g, float b, float *h, float *s, float *l);
     /**
      * @brief hslToRgb Converts a floating point RGB color value (red, green and blue) into its HSL (hue, saturation and lightness) representation (all components in the interval [0.0 .. 1.0]
-     * @param h     HSL hue as floating point in the interval [0.0 .. 1.0]          (output)
-     * @param s     HSL saturation as floating point in the interval [0.0 .. 1.0]   (output)
-     * @param l     HSL lightness as floating point in the interval [0.0 .. 1.0]    (output)
-     * @param r     RGB red as floating point in the interval [0.0 .. 1.0]          (input)
-     * @param g     RGB green as floating point in the interval [0.0 .. 1.0]        (input)
-     * @param b     RGB blue as floating point in the interval [0.0 .. 1.0]         (input)
+     * @param h     HSL hue as floating point in the interval [0.0 .. 1.0]          (input)
+     * @param s     HSL saturation as floating point in the interval [0.0 .. 1.0]   (input)
+     * @param l     HSL lightness as floating point in the interval [0.0 .. 1.0]    (input)
+     * @param r     RGB red as floating point in the interval [0.0 .. 1.0]          (output)
+     * @param g     RGB green as floating point in the interval [0.0 .. 1.0]        (output)
+     * @param b     RGB blue as floating point in the interval [0.0 .. 1.0]         (output)
      */
     static void hslToRgb(float h, float s, float l, float *r, float *g, float *b);
 
+    // RGB/HSV
+    /**
+     * @brief rgbToHsv Converts a floating point RGB color value (red, green and blue) into its HSV (hue, saturation and value) representation (all components in the interval [0.0 .. 1.0]
+     * @param r     RGB red as floating point in the interval [0.0 .. 1.0]          (input)
+     * @param g     RGB green as floating point in the interval [0.0 .. 1.0]        (input)
+     * @param b     RGB blue as floating point in the interval [0.0 .. 1.0]         (input)
+     * @param h     HSV hue as floating point in the interval [0.0 .. 1.0]          (output)
+     * @param s     HSV saturation as floating point in the interval [0.0 .. 1.0]   (output)
+     * @param v     HSV value as floating point in the interval [0.0 .. 1.0]        (output)
+     */
     static void rgbToHsv(float r, float g, float b, float *h, float *s, float *v);
+    /**
+     * @brief hsvToRgb
+     * @param h     HSV hue as floating point in the interval [0.0 .. 1.0]          (input)
+     * @param s     HSV saturation as floating point in the interval [0.0 .. 1.0]   (input)
+     * @param l     HSV value as floating point in the interval [0.0 .. 1.0]        (input)
+     * @param r     RGB red as floating point in the interval [0.0 .. 1.0]          (output)
+     * @param g     RGB green as floating point in the interval [0.0 .. 1.0]        (output)
+     * @param b     RGB blue as floating point in the interval [0.0 .. 1.0]         (output)
+     */
     static void hsvToRgb(float h, float s, float v, float *r, float *g, float *b);
+
+    // RGB/CMYK
+    /**
+     * @brief rgbToCmyk
+     * @param r
+     * @param g
+     * @param b
+     * @param c
+     * @param m
+     * @param y
+     * @param k
+     */
+    static void rgbToCmyk(float r, float g, float b, float *c, float *m, float *y, float *k);
+    /**
+     * @brief cmykToRgb
+     * @param c
+     * @param m
+     * @param y
+     * @param k
+     * @param r
+     * @param g
+     * @param b
+     */
+    static void cmykToRgb(float c, float m, float y, float k, float *r, float *g, float *b);
 
 private:
     RGBConverter();

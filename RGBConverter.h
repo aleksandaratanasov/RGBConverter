@@ -192,8 +192,8 @@ public:
 
     // YIQ to ...
     static void yiqToHsl(double y, double i, double q, double* h, double* s, double* l);
-    static void yiqToHsl(double y, double i, double q, double* h, double* s, double* v);
-    static void yiqToHsl(double y, double i, double q, double* c, double* m, double* _y, double* k);
+    static void yiqToHsv(double y, double i, double q, double* h, double* s, double* v);
+    static void yiqToCmyk(double y, double i, double q, double* c, double* m, double* _y, double* k);
 
 private:
     RGBConverter();

@@ -20,8 +20,12 @@ add_library(rgbconverter SHARED RGBConverter.cpp)
 # - Execute `make`
 # - Use the `mv` command to move the libraries (two *.so files) to /usr/lib/
 # find_package(GTest) should now be able to find them
-enable_testing()
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
-add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} rgbconverter gtest)
+option(BUILD_TESTS "Build Google Test and a small demo" OFF)
+if(BUILD_TESTS)
+    message("Google test will be build")
+    enable_testing()
+    find_package(GTest REQUIRED)
+    include_directories(${GTEST_INCLUDE_DIRS})
+    add_executable(${PROJECT_NAME} main.cpp)
+    target_link_libraries(${PROJECT_NAME} rgbconverter gtest)
+endif()

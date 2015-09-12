@@ -21,3 +21,7 @@ v0.1
  * Added alternative display of HSL using degrees and percentages
  * Reformatted documentation
  * Added example executable
+
+v0.1.1
+
+ * Added support for YIQ and CMYK conversion

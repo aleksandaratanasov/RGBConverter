@@ -7,15 +7,62 @@
 #define RGB_B 37
 
 TEST(UnitCoversion, IntToDouble_single) {
-  double x = 0.00000, x_res;
+  double x = .0000000, x_res;
   int color = 0;
-  for(; color < 10; color++) {
-    printf("%d -> (expected: %.5f | actual: %.5f", color, x, x_res);
+  double step = 1/255.;
+  for(; color < 256; color++) {
     RGBConverter::rgbIntToDouble_single(color, &x_res);
-    EXPECT_NEAR(x, x_res, 0.0001);
-    x+=0.004;
+    EXPECT_NEAR(x, x_res, .0000001);
+
+    x+=step;
   }
 }
+
+TEST(UnitConversion, DoubleToInt_single) {
+  double x = .0000000;
+  int x_res;
+  int color = 0;
+  double step = 1/255.;
+  for(; color < 256; color++) {
+    RGBConverter::rgbDoubleToInt_single(x, &x_res);
+    EXPECT_EQ(color, x_res);
+
+    x+=step;
+  }
+}
+
+TEST(UnitCoversion, IntToDouble_full) {
+  double x = .0000000, r_res, g_res, b_res;
+  int color = 0;
+  double step = 1/255.;
+  for(; color < 256; color++) {
+    RGBConverter::rgbIntToDouble(color, color, color, &r_res, &g_res, &b_res);
+    EXPECT_NEAR(x, r_res, .0000001);
+    EXPECT_NEAR(x, g_res, .0000001);
+    EXPECT_NEAR(x, b_res, .0000001);
+
+    x+=step;
+  }
+}
+
+TEST(UnitConversion, DoubleToInt_full) {
+  double x = .0000000;
+  int r_res, g_res, b_res;
+  int color = 0;
+  double step = 1/255.;
+  for(; color < 256; color++) {
+    RGBConverter::rgbDoubleToInt(x, x, x, &r_res, &g_res, &b_res);
+    EXPECT_EQ(color, r_res);
+    EXPECT_EQ(color, g_res);
+    EXPECT_EQ(color, b_res);
+
+    x+=step;
+  }
+}
+
+// Add hsl unit conversions
+
+// Add color conversion test cases
 
 int main(int argc, char** argv) {
   // Small demo

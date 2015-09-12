@@ -25,4 +25,5 @@ v0.1
 v0.1.1
 
  * Added support for YIQ and CMYK conversion
- * Added wrappers for conversion between non-RGB color values (example: HSL to HSV). **Note:** Due to the way these are implemented you will experience slightly decreased performance. This is because the first (convert from) color value is converted to RGB and then the RGB is used to generate the second (convert to) color value
+ * Added wrappers for conversion between non-RGB color values (example: HSL to HSV).
+   **Note:** Due to the way these are implemented you will experience slightly decreased performance. This is because the first (convert from) color value is converted to RGB and then the RGB is used to generate the second (convert to) color value

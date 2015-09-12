@@ -174,15 +174,26 @@ public:
     // ...
 
     // Color value conversions - wrappers (example: HSL to HSV, YIQ to HSL etc.)
+    // Input/output parameters are similar to the ones mentioned above
+    // HSL to ...
     static void hslToHsv(double h, double s, double l, double* _h, double* _s, double* v);
     static void hslToCmyk(double h, double s, double l, double* c, double* m, double* y, double* k);
     static void hslToYiq(double h, double s, double l, double* y, double* i, double* q);
+
+    // HSV to ...
     static void hsvToHsl(double h, double s, double v, double* _h, double* _s, double* l);
     static void hsvToCmyk(double h, double s, double v, double* c, double* m, double* y, double* k);
     static void hsvToYiq(double h, double s, double v, double* y, double* i, double* q);
+
+    // CMYK to ...
     static void cmykToHsl(double c, double m, double y, double k, double* h, double* s, double* l);
     static void cmykToHsv(double c, double m, double y, double k, double* h, double* s, double* v);
     static void cmykToYiq(double c, double m, double y, double k, double* _y, double* i, double* q);
+
+    // YIQ to ...
+    static void yiqToHsl(double y, double i, double q, double* h, double* s, double* l);
+    static void yiqToHsl(double y, double i, double q, double* h, double* s, double* v);
+    static void yiqToHsl(double y, double i, double q, double* c, double* m, double* _y, double* k);
 
 private:
     RGBConverter();

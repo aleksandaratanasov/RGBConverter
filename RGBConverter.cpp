@@ -20,21 +20,21 @@
 #include <cmath>
 
 // Unit conversions
-void RGBConverter::rgbIntToDouble_single(int x, double* _x) {
+void RGBConverter::rgbIntToDouble_single(unsigned int x, double* _x) {
  * _x = x/255.;
 }
 
-void RGBConverter::rgbIntToDouble(int r, int g, int b, double* _r, double* _g, double* _b) {
+void RGBConverter::rgbIntToDouble(unsigned int r, unsigned int g, unsigned int b, double* _r, double* _g, double* _b) {
   rgbIntToDouble_single(r, _r);
   rgbIntToDouble_single(g, _g);
   rgbIntToDouble_single(b, _b);
 }
 
-void RGBConverter::rgbDoubleToInt_single(double x, int* _x) {
+void RGBConverter::rgbDoubleToInt_single(double x, unsigned int* _x) {
  * _x = floor(x == 1.0 ? 255 : x*  256.0);
 }
 
-void RGBConverter::rgbDoubleToInt(double r, double g, double b, int* _r, int* _g, int* _b) {
+void RGBConverter::rgbDoubleToInt(double r, double g, double b, unsigned int* _r, unsigned int* _g, unsigned int* _b) {
   rgbDoubleToInt_single(r, _r);
   rgbDoubleToInt_single(g, _g);
   rgbDoubleToInt_single(b, _b);
@@ -102,7 +102,7 @@ void RGBConverter::rgbToHsv(double r, double g, double b, double* h, double* s, 
 }
 
 void RGBConverter::hsvToRgb(double h, double s, double v, double* r, double* g, double* b) {
-  int i = int(h*  6.);
+  unsigned int i = (unsigned int)(h*  6.);
   double f = h*  6. - i;
   double p = v*  (1. - s);
   double q = v*  (1. - f*  s);

@@ -32,7 +32,7 @@ public:
      *  @param x   RGB single component as integer                                   (input)
      *  @param _x  RGB single component as floating point                            (output)
      */
-    static void rgbIntToDouble_single(int x, double* _x);
+    static void rgbIntToDouble_single(unsigned int x, double* _x);
     /**
      *  @brief rgbIntToDouble Converts a RGB color value (red, green and blue) into its floating point representation
      *  @param r     RGB red as integer in the interval [0 .. 255]                   (input)
@@ -42,13 +42,13 @@ public:
      *  @param g     RGB green as floating point in the interval [0.0 .. 1.0]        (output)
      *  @param b     RGB blue as floating point in the interval [0.0 .. 1.0]         (output)
      */
-    static void rgbIntToDouble(int r, int g, int b, double* _r, double* _g, double* _b);
+    static void rgbIntToDouble(unsigned int r, unsigned int g, unsigned int b, double* _r, double* _g, double* _b);
     /**
      *  @brief rgbDoubleToInt_single Converts a single floating point RGB color value component (red, green or blue) into its integer representation
      *  @param x   RGB single component as floating point in the interval [0.0 .. 1.0]   (input)
      *  @param _x  RGB single component as integer in the interval [0 .. 255]            (output)
      */
-    static void rgbDoubleToInt_single(double x, int* _x);
+    static void rgbDoubleToInt_single(double x, unsigned int* _x);
     /**
      *  @brief rgbDoubleToInt Converts a floating point RGB color value (red, green and blue) into its integer representation
      *  @param r     RGB red as floating point in the interval [0.0 .. 1.0]          (input)
@@ -58,7 +58,7 @@ public:
      *  @param g     RGB green as integer in the interval [0 .. 255]                 (output)
      *  @param b     RGB blue as integer in the interval [0 .. 255]                  (output)
      */
-    static void rgbDoubleToInt(double r, double g, double b, int* _r, int* _g, int* _b);
+    static void rgbDoubleToInt(double r, double g, double b, unsigned int* _r, unsigned int* _g, unsigned int* _b);
     /**
      *  @brief hslIntervalZeroOneToDegAndPercentage Converts a HSL color value with each component in the interval [0.0 .. 1.0] to degrees (for hue) and percentages (for saturation and lightness)
      *  @param h     HSL hue as floating point in the interval [0.0 .. 1.0]          (input)

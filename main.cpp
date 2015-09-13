@@ -8,7 +8,7 @@
 
 TEST(UnitCoversion, IntToDouble_single) {
   double x = .0000000, x_res;
-  int color = 0;
+  unsigned int color = 0;
   double step = 1/255.;
   for(; color < 256; color++) {
     RGBConverter::rgbIntToDouble_single(color, &x_res);
@@ -20,8 +20,8 @@ TEST(UnitCoversion, IntToDouble_single) {
 
 TEST(UnitConversion, DoubleToInt_single) {
   double x = .0000000;
-  int x_res;
-  int color = 0;
+  unsigned int x_res;
+  unsigned int color = 0;
   double step = 1/255.;
   for(; color < 256; color++) {
     RGBConverter::rgbDoubleToInt_single(x, &x_res);
@@ -33,7 +33,7 @@ TEST(UnitConversion, DoubleToInt_single) {
 
 TEST(UnitCoversion, IntToDouble_full) {
   double x = .0000000, r_res, g_res, b_res;
-  int color = 0;
+  unsigned int color = 0;
   double step = 1/255.;
   for(; color < 256; color++) {
     RGBConverter::rgbIntToDouble(color, color, color, &r_res, &g_res, &b_res);
@@ -47,8 +47,8 @@ TEST(UnitCoversion, IntToDouble_full) {
 
 TEST(UnitConversion, DoubleToInt_full) {
   double x = .0000000;
-  int r_res, g_res, b_res;
-  int color = 0;
+  unsigned int r_res, g_res, b_res;
+  unsigned int color = 0;
   double step = 1/255.;
   for(; color < 256; color++) {
     RGBConverter::rgbDoubleToInt(x, x, x, &r_res, &g_res, &b_res);
@@ -67,11 +67,11 @@ TEST(UnitConversion, DoubleToInt_full) {
 int main(int argc, char** argv) {
   // Small demo
   double r, g, b;
-  int _r, _g, _b;
+  unsigned int _r, _g, _b;
   double h, s, l, _h, _s, _l;
 
   RGBConverter::rgbIntToDouble(RGB_R, RGB_G, RGB_B, &r, &g, &b);
-  printf("RGB(int) -> RGB(double) -> HSL -> RGB(double) -> RGB(int)\n");
+  printf("RGB(unsigned int) -> RGB(double) -> HSL -> RGB(double) -> RGB(unsigned int)\n");
   printf("RGB: %d %d %d\n", RGB_R, RGB_G, RGB_B);
   printf("RGB: %.2f %.2f %.2f\n", r, g, b);
 
